@@ -24,5 +24,5 @@ ENV HOME=/root
 # Expose gateway port
 EXPOSE 18789
 
-# Start clawdbot gateway
-CMD ["clawdbot", "gateway", "start"]
+# Start clawdbot gateway in foreground mode for containers
+CMD ["clawdbot", "gateway", "serve"]
