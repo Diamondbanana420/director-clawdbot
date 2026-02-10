@@ -1,11 +1,10 @@
 FROM node:20-slim
 
-# Install git and pnpm
-RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
-RUN npm install -g pnpm
+# Install git
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
-# Install clawdbot globally via pnpm
-RUN pnpm add -g clawdbot
+# Install clawdbot globally with npm (force clean install)
+RUN npm cache clean --force && npm install -g clawdbot@latest --legacy-peer-deps
 
 # Create workspace directories
 RUN mkdir -p /root/clawd /root/.clawdbot
@@ -26,4 +25,4 @@ ENV HOME=/root
 EXPOSE 18789
 
 # Start clawdbot gateway
-CMD ["pnpm", "exec", "clawdbot", "gateway", "start", "--foreground"]
+CMD ["clawdbot", "gateway", "start", "--foreground"]
