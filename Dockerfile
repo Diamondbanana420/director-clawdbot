@@ -25,4 +25,4 @@ ENV HOME=/root
 EXPOSE 18789
 
 # Start clawdbot gateway
-CMD ["clawdbot", "gateway", "start", "--foreground"]
+CMD ["clawdbot", "gateway", "start"]
