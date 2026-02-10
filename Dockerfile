@@ -1,5 +1,8 @@
 FROM node:20-slim
 
+# Install git (required for clawdbot npm install)
+RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
+
 # Install clawdbot globally
 RUN npm install -g clawdbot
 
