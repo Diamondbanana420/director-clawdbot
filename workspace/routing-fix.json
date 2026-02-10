@@ -1,0 +1,55 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-sonnet-4-20250514"
+      },
+      "models": {
+        "emergent/gpt-4o": {},
+        "anthropic/claude-sonnet-4-20250514": {},
+        "openai/gpt-4o": {}
+      },
+      "workspace": "/root/clawd",
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    },
+    "list": [
+      {
+        "id": "main"
+      },
+      {
+        "id": "slave-business",
+        "name": "slave-business",
+        "workspace": "/root/clawd/workspaces/business",
+        "agentDir": "/root/.clawdbot/agents/slave-business/agent",
+        "model": "anthropic/claude-sonnet-4-20250514"
+      },
+      {
+        "id": "slave-coding",
+        "name": "slave-coding",
+        "workspace": "/root/clawd/workspaces/coding",
+        "agentDir": "/root/.clawdbot/agents/slave-coding/agent",
+        "model": "anthropic/claude-sonnet-4-20250514"
+      },
+      {
+        "id": "slave-master",
+        "name": "slave-master",
+        "workspace": "/root/clawd/workspaces/master",
+        "agentDir": "/root/.clawdbot/agents/slave-master/agent",
+        "model": "anthropic/claude-sonnet-4-20250514"
+      }
+    ],
+    "routing": [
+      {
+        "channel": "discord",
+        "account": "master",
+        "agent": "slave-master"
+      }
+    ]
+  }
+}

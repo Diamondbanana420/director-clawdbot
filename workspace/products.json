@@ -1,0 +1,37 @@
+[
+  {
+    "title": "Smartphone Stand",
+    "costUsd": 19.99,
+    "description": "Adjustable smartphone stand for desk or table",
+    "category": "Accessories",
+    "inStock": true
+  },
+  {
+    "title": "Bluetooth Speaker",
+    "costUsd": 49.99,
+    "description": "Portable Bluetooth speaker with premium sound",
+    "category": "Electronics",
+    "inStock": true
+  },
+  {
+    "title": "Wireless Charger",
+    "costUsd": 29.99,
+    "description": "Fast wireless charging pad for smartphones",
+    "category": "Electronics",
+    "inStock": true
+  },
+  {
+    "title": "Phone Case",
+    "costUsd": 14.99,
+    "description": "Protective phone case with drop protection",
+    "category": "Accessories",
+    "inStock": true
+  },
+  {
+    "title": "USB-C Cable",
+    "costUsd": 12.99,
+    "description": "High-speed USB-C charging cable",
+    "category": "Accessories",
+    "inStock": true
+  }
+]

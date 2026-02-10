@@ -1,0 +1,46 @@
+{
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "token": "MTQ2ODAyMjYzODUyMDgzMjAxMQ.GLqUGb.X9otZHZJauhN6cVCwaM5LB69ZTGNGgKqmVq30k",
+      "groupPolicy": "open",
+      "dm": {
+        "policy": "open",
+        "allowFrom": ["*"]
+      }
+    },
+    "discord-master": {
+      "enabled": true,
+      "token": "MTQ2ODQ5NjIzMDY0MzY2Mjg0OA.Gwsx9x.oe7xlu5zMd_W38TohjgKURggiJdlKeEO2CfcGI",
+      "groupPolicy": "open",
+      "dm": {
+        "policy": "open",
+        "allowFrom": ["*"]
+      },
+      "agentId": "slave-master",
+      "workspace": "/root/clawd/workspaces/master"
+    },
+    "discord-business": {
+      "enabled": true,
+      "token": "MTQ2ODgwMzkwMzQ5MDM2MzU1OA.GSKnrh.6YMN27fviaM_NWy7gUqFPBduuqko4F-WXMuuOY",
+      "groupPolicy": "open", 
+      "dm": {
+        "policy": "open",
+        "allowFrom": ["*"]
+      },
+      "agentId": "slave-business",
+      "workspace": "/root/clawd/workspaces/business"
+    },
+    "discord-coding": {
+      "enabled": true,
+      "token": "MTQ2ODgwMzU2ODUxMjQwNTY0OQ.Gi--iN.lX20JP_gIyvWiatwleNioJTvcY5S6Hy_DZSVGY",
+      "groupPolicy": "open",
+      "dm": {
+        "policy": "open", 
+        "allowFrom": ["*"]
+      },
+      "agentId": "slave-coding",
+      "workspace": "/root/clawd/workspaces/coding"
+    }
+  }
+}

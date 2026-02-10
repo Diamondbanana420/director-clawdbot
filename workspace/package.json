@@ -1,0 +1,29 @@
+{
+  "name": "xeriaco-cart-api",
+  "version": "1.0.0",
+  "description": "Emergency Cart API for XeriaCo - Restores sales capability",
+  "main": "xeriaco-cart-api.js",
+  "scripts": {
+    "start": "node xeriaco-cart-api.js",
+    "dev": "nodemon xeriaco-cart-api.js",
+    "test": "echo \"Testing cart functionality...\" && curl http://localhost:3001/health"
+  },
+  "dependencies": {
+    "axios": "^1.13.4",
+    "cors": "^2.8.6",
+    "express": "^4.22.1",
+    "http-proxy-middleware": "^3.0.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "author": "Business Operations Director",
+  "license": "MIT",
+  "keywords": [
+    "xeriaco",
+    "cart",
+    "api",
+    "ecommerce",
+    "emergency-deployment"
+  ]
+}

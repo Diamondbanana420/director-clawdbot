@@ -1,0 +1,69 @@
+{
+  "servers": {
+    "this-server": {
+      "url": "localhost",
+      "bots": [
+        "slave (master)",
+        "slave (marketing)",
+        "slave (coding)",
+        "slave (business)"
+      ],
+      "lastUpdate": "2026-02-05T05:53:48.034Z",
+      "status": "online"
+    },
+    "other-server": {
+      "url": "distracted-borg.preview.emergentagent.com",
+      "bots": [
+        "master-slave-bot"
+      ],
+      "lastUpdate": null,
+      "status": "unknown"
+    }
+  },
+  "coordination": {
+    "masterServer": "this-server",
+    "syncInterval": 30000,
+    "lastSync": "2026-02-05T06:05:19.289Z"
+  },
+  "sharedData": {
+    "userPreferences": {},
+    "crossServerMessages": [
+      {
+        "type": "coordination_request",
+        "user": "1467990609716318392",
+        "message": "so can you revive <@1468022638520832011> <@1468496230643662848>",
+        "timestamp": "2026-02-05T05:56:42.659Z"
+      },
+      {
+        "type": "coordination_request",
+        "user": "1467990609716318392",
+        "message": "<@1468496230643662848> talk like a creep and a weirdo and use 1 line reponses",
+        "timestamp": "2026-02-05T06:00:14.556Z"
+      },
+      {
+        "type": "coordination_request",
+        "user": "1467990609716318392",
+        "message": "<@1468802646461779998> fix <@1468496230643662848>",
+        "timestamp": "2026-02-05T06:02:23.204Z"
+      },
+      {
+        "type": "coordination_request",
+        "user": "1467990609716318392",
+        "message": "<@1468022638520832011> make <@1468802646461779998> <@1468496230643662848>  two seperate bots pls and restore <@1468496230643662848> to who he was but keep creepy stuff and update all discord names",
+        "timestamp": "2026-02-05T06:04:00.870Z"
+      }
+    ],
+    "botStatuses": {
+      "masterBotLocal": {
+        "status": "online",
+        "timestamp": "2026-02-05T05:53:49.095Z",
+        "server": "this-server"
+      },
+      "heartbeat": {
+        "status": "active",
+        "timestamp": "2026-02-05T06:05:19.289Z",
+        "server": "this-server"
+      }
+    }
+  }
+}

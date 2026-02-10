@@ -1,0 +1,91 @@
+{
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com",
+        "apiKey": "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",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-opus-4-5-20251101",
+            "name": "Claude Opus 4.5",
+            "input": ["text", "image"],
+            "cost": {
+              "input": 0.000015,
+              "output": 0.000075,
+              "cacheRead": 0.0000015,
+              "cacheWrite": 0.00001875
+            },
+            "contextWindow": 200000,
+            "maxTokens": 64000
+          }
+        ]
+      },
+      "emergent": {
+        "baseUrl": "https://integrations.emergentagent.com/llm/v1",
+        "apiKey": "sk-emergent-81b30117aEdAbAa083",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "gpt-4",
+            "name": "GPT-4 (Emergent)",
+            "input": ["text"],
+            "contextWindow": 128000,
+            "maxTokens": 4096
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "anthropic/claude-opus-4-5-20251101"
+      },
+      "workspace": "/root/clawd",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "channels": {
+    "discord": {
+      "token": "MTQ2ODAyMjYzODUyMDgzMjAxMQ.GLqUGb.X9otZHZJauhN6cVCwaM5LB69ZTGNGgKqmVq30k",
+      "groupPolicy": "open"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "bind": "0.0.0.0",
+    "auth": {
+      "mode": "token",
+      "token": "bf4765e62a04f87f5d339499fc25aa01"
+    },
+    "controlUi": {
+      "enabled": true,
+      "allowInsecureAuth": true
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "plugins": {
+    "entries": {
+      "discord": {
+        "enabled": true
+      }
+    }
+  },
+  "tools": {
+    "braveSearch": {
+      "apiKey": "BSANA8i_VvtzC6j_BrNSL9JBVimDrkk"
+    }
+  }
+}

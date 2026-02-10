@@ -1,0 +1,101 @@
+{
+  "researchDate": "2026-02-05T06:36:09.117Z",
+  "analyst": "slave (product research)",
+  "totalProducts": 3,
+  "avgProfitMargin": 56.13333333333333,
+  "products": [
+    {
+      "id": "PROD_1770273369117_1",
+      "name": "Premium Product",
+      "category": "outdoor gear",
+      "description": "Premium premium product - trending product with strong demand",
+      "supplierPrice": 8.3,
+      "sellingPrice": 28.82,
+      "shippingCost": 3.5,
+      "profitPerSale": "17.02",
+      "profitMargin": 59.1,
+      "demandScore": 88,
+      "competitionLevel": "Low",
+      "trendingScore": 94,
+      "searchVolume": "37,836/month",
+      "supplier": {
+        "name": "Verified AliExpress Supplier",
+        "location": "Guangzhou, China",
+        "rating": "4.5",
+        "orderCount": "11,104",
+        "shippingTime": "7-14 days",
+        "minOrderQuantity": 1,
+        "contactMethod": "AliExpress messaging"
+      },
+      "targetAudience": "20-50 quality-conscious consumers",
+      "marketingAngle": "Premium quality that enhances daily life",
+      "keywords": [
+        "premium product",
+        "best outdoor gear",
+        "outdoor gear deals"
+      ]
+    },
+    {
+      "id": "PROD_1770273369117_2",
+      "name": "Premium Product",
+      "category": "outdoor gear",
+      "description": "Premium premium product - trending product with strong demand",
+      "supplierPrice": 9.75,
+      "sellingPrice": 31.63,
+      "shippingCost": 3.5,
+      "profitPerSale": "18.38",
+      "profitMargin": 58.1,
+      "demandScore": 90,
+      "competitionLevel": "Low",
+      "trendingScore": 66,
+      "searchVolume": "31,972/month",
+      "supplier": {
+        "name": "Verified AliExpress Supplier",
+        "location": "Guangzhou, China",
+        "rating": "4.5",
+        "orderCount": "12,623",
+        "shippingTime": "7-14 days",
+        "minOrderQuantity": 1,
+        "contactMethod": "AliExpress messaging"
+      },
+      "targetAudience": "20-50 quality-conscious consumers",
+      "marketingAngle": "Premium quality that enhances daily life",
+      "keywords": [
+        "premium product",
+        "best outdoor gear",
+        "outdoor gear deals"
+      ]
+    },
+    {
+      "id": "PROD_1770273369117_3",
+      "name": "Premium Product",
+      "category": "gaming accessories",
+      "description": "Premium premium product - trending product with strong demand",
+      "supplierPrice": 7.84,
+      "sellingPrice": 23.25,
+      "shippingCost": 3.5,
+      "profitPerSale": "11.91",
+      "profitMargin": 51.2,
+      "demandScore": 91,
+      "competitionLevel": "Low",
+      "trendingScore": 83,
+      "searchVolume": "75,677/month",
+      "supplier": {
+        "name": "Verified AliExpress Supplier",
+        "location": "Guangzhou, China",
+        "rating": "4.4",
+        "orderCount": "15,667",
+        "shippingTime": "7-14 days",
+        "minOrderQuantity": 1,
+        "contactMethod": "AliExpress messaging"
+      },
+      "targetAudience": "20-50 quality-conscious consumers",
+      "marketingAngle": "Premium quality that enhances daily life",
+      "keywords": [
+        "premium product",
+        "best gaming accessories",
+        "gaming accessories deals"
+      ]
+    }
+  ]
+}
