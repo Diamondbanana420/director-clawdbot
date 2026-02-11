@@ -1,72 +1,76 @@
 {
-      "models": {
-              "mode": "merge",
-              "providers": {
-                        "deepseek": {
-                                    "baseUrl": "https://api.deepseek.com",
-                                    "apiKey": "sk-08781ccdd31849faa747aafd3c0b1e31",
-                                    "api": "openai-completions",
-                                    "models": [
-                                                  {
-                                                                  "id": "deepseek-chat",
-                                                                  "name": "DeepSeek Chat (V3)",
-                                                                  "input": ["text"],
-                                                                  "contextWindow": 64000,
-                                                                  "maxTokens": 8192
-                                                  },
-                                                  {
-                                                                  "id": "deepseek-reasoner",
-                                                                  "name": "DeepSeek Reasoner (R1)",
-                                                                  "input": ["text"],
-                                                                  "contextWindow": 64000,
-                                                                  "maxTokens": 8192
-                                                  }
-                                    ]
-                        }
-              }
-      },
-      "agents": {
-              "defaults": {
-                        "model": {
-                                    "primary": "deepseek/deepseek-chat"
-                        },
-                        "workspace": "/root/clawd",
-                        "maxConcurrent": 4,
-                        "subagents": {
-                                    "maxConcurrent": 8
-                        }
-              }
-      },
-      "commands": {
-              "native": "auto",
-              "nativeSkills": "auto"
-      },
-      "channels": {
-              "discord": {
-                        "token": "MTQ2ODAyMjYzODUyMDgzMjAxMQ.G86Q-0.eVulVWuYyBMnX91m0vSaC0I3hs7_dVONgBf4AM",
-                        "groupPolicy": "open"
-              }
-      },
-      "gateway": {
-              "mode": "local",
-              "port": 18789,
-              "auth": {
-                        "mode": "token",
-                        "token": "bf4765e62a04f87f5d339499fc25aa01"
-              },
-              "controlUi": {
-                        "enabled": true,
-                        "allowInsecureAuth": true
-              }
-      },
-      "messages": {
-              "ackReactionScope": "group-mentions"
-      },
-      "plugins": {
-              "entries": {
-                        "discord": {
-                                    "enabled": true
-                        }
-              }
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com",
+        "apiKey": "sk-08781ccdd31849faa747aafd3c0b1e31",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek-chat",
+            "name": "DeepSeek Chat (V3)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 64000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek-reasoner",
+            "name": "DeepSeek Reasoner (R1)",
+            "input": [
+              "text"
+            ],
+            "contextWindow": 64000,
+            "maxTokens": 8192
+          }
+        ]
       }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "deepseek/deepseek-chat"
+      },
+      "workspace": "/root/clawd",
+      "maxConcurrent": 4,
+      "subagents": {
+        "maxConcurrent": 8
+      }
+    }
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto"
+  },
+  "channels": {
+    "discord": {
+      "token": "MTQ2ODAyMjYzODUyMDgzMjAxMQ.Gv10LJ.UzGyPHyz-di05HQuk9vIrElOJWjOeoEYDpS8DI",
+      "groupPolicy": "open"
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "port": 18789,
+    "auth": {
+      "mode": "token",
+      "token": "bf4765e62a04f87f5d339499fc25aa01"
+    },
+    "controlUi": {
+      "enabled": true,
+      "allowInsecureAuth": true
+    }
+  },
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "plugins": {
+    "entries": {
+      "discord": {
+        "enabled": true
+      }
+    }
+  }
 }
