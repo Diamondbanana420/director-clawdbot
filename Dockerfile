@@ -15,8 +15,11 @@ WORKDIR /root/clawd
 # Copy workspace files
 COPY workspace/ /root/clawd/
 
-# Copy clawdbot config
-COPY clawdbot.json /root/.clawdbot/clawdbot.json
+# Copy clawdbot config template (contains placeholders)
+COPY clawdbot.json /root/.clawdbot/clawdbot.json.template
+
+# Create entrypoint script that injects env vars into config
+RUN printf '#!/bin/sh\nset -e\nsed "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json\nexec clawdbot gateway\n' > /root/entrypoint.sh && chmod +x /root/entrypoint.sh
 
 # Set HOME for clawdbot
 ENV HOME=/root
@@ -24,5 +27,5 @@ ENV HOME=/root
 # Expose gateway port
 EXPOSE 18789
 
-# Start clawdbot gateway (runs in foreground)
-CMD ["clawdbot", "gateway"]
+# Start with entrypoint that injects secrets then runs gateway
+CMD ["/root/entrypoint.sh"]
