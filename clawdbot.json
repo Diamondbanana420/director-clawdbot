@@ -3,7 +3,7 @@
     "mode": "merge",
     "providers": {
       "deepseek": {
-        "baseUrl": "https://api.deepseek.com",
+        "baseUrl": "https://api.deepseek.com/v1",
         "apiKey": "sk-08781ccdd31849faa747aafd3c0b1e31",
         "api": "openai-completions",
         "models": [
