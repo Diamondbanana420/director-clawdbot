@@ -1,76 +1,76 @@
 {
-          "models": {
-                        "mode": "merge",
-                        "providers": {
+            "models": {
+                          "mode": "merge",
+                          "providers": {
                                           "deepseek": {
-                                                                "baseUrl": "https://api.deepseek.com/v1",
-                                                                "apiKey": "sk-08781ccdd31849faa747aafd3c0b1e31",
-                                                                "api": "openai-completions",
-                                                                "models": [
-                                                                                          {
-                                                                                                                        "id": "deepseek-chat",
-                                                                                                                        "name": "DeepSeek Chat (V3)",
-                                                                                                                        "input": [
-                                                                                                                                                          "text"
-                                                                                                                              ],
-                                                                                                                        "contextWindow": 64000,
-                                                                                                                        "maxTokens": 8192
-                                                                                                },
-                                                                                          {
-                                                                                                                        "id": "deepseek-reasoner",
-                                                                                                                        "name": "DeepSeek Reasoner (R1)",
-                                                                                                                        "input": [
-                                                                                                                                                          "text"
-                                                                                                                              ],
-                                                                                                                        "contextWindow": 64000,
-                                                                                                                        "maxTokens": 8192
-                                                                                                }
-                                                                ]
+                                                            "baseUrl": "https://api.deepseek.com/v1",
+                                                            "apiKey": "sk-08781ccdd31849faa747aafd3c0b1e31",
+                                                            "api": "openai-completions",
+                                                            "models": [
+                                                                                {
+                                                                                                      "id": "deepseek-chat",
+                                                                                                      "name": "DeepSeek Chat (V3)",
+                                                                                                      "input": [
+                                                                                                                              "text"
+                                                                                                                ],
+                                                                                                      "contextWindow": 64000,
+                                                                                                      "maxTokens": 8192
+                                                                                          },
+                                                                                {
+                                                                                                      "id": "deepseek-reasoner",
+                                                                                                      "name": "DeepSeek Reasoner (R1)",
+                                                                                                      "input": [
+                                                                                                                              "text"
+                                                                                                                ],
+                                                                                                      "contextWindow": 64000,
+                                                                                                      "maxTokens": 8192
+                                                                                          }
+                                                            ]
                                           }
-                        }
-          },
-          "agents": {
-                        "defaults": {
+                          }
+            },
+            "agents": {
+                          "defaults": {
                                           "model": {
-                                                                "primary": "deepseek/deepseek-chat"
+                                                            "primary": "deepseek/deepseek-chat"
                                           },
                                           "workspace": "/root/clawd",
                                           "maxConcurrent": 1,
                                           "subagents": {
-                                                                "maxConcurrent": 2
+                                                            "maxConcurrent": 1
                                           }
-                        }
-          },
-          "commands": {
-                        "native": "auto",
-                        "nativeSkills": "auto"
-          },
-          "channels": {
-                        "discord": {
+                          }
+            },
+                                                                                            "commands": {
+                                                                                                          "native": "auto",
+                                                                                                          "nativeSkills": "auto"
+                                                                                                      },
+            "channels": {
+                          "discord": {
                                           "token": "__DISCORD_BOT_TOKEN__",
                                           "groupPolicy": "open"
-                        }
-          },
-          "gateway": {
-                        "mode": "local",
-                        "port": 18789,
-                        "auth": {
+}
+                                                                                },
+            "gateway": {
+                          "mode": "local",
+                          "port": 18789,
+                          "auth": {
                                           "mode": "token",
                                           "token": "bf4765e62a04f87f5d339499fc25aa01"
-                        },
-                        "controlUi": {
+                          },
+                          "controlUi": {
                                           "enabled": true,
                                           "allowInsecureAuth": true
-                        }
-          },
-          "messages": {
-                        "ackReactionScope": "all"
-          },
-          "plugins": {
-                        "entries": {
+                          }
+            },
+            "messages": {
+                          "ackReactionScope": "all"
+            },
+            "plugins": {
+                          "entries": {
                                           "discord": {
-                                                                "enabled": true
-                                          }
-                        }
-          }
+                                                            "enabled": true
+}
+                          }
+            }
 }
