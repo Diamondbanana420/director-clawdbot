@@ -4,6 +4,27 @@
 sed "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" \
   /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json
 
+# --- Git Setup for /reread self-update ---
+# Initialize git in workspace so the bot can pull updates via /reread
+echo "[setup] Setting up git for self-update capability..."
+cd /root/clawd
+if [ ! -d ".git" ]; then
+  git init
+  git remote add origin https://github.com/Diamondbanana420/director-clawdbot.git
+  git fetch origin main --depth=1
+  git checkout -f origin/main -- workspace/
+  # Copy workspace files into place (they're nested under workspace/)
+  cp -r workspace/* . 2>/dev/null || true
+  cp -r workspace/.* . 2>/dev/null || true
+  echo "[setup] Git repo initialized - /reread will pull latest changes"
+else
+  echo "[setup] Git repo already initialized"
+fi
+git config --global user.email "bot@xeriaco.com"
+git config --global user.name "XeriaCo Manager"
+# Allow git operations in this directory
+git config --global --add safe.directory /root/clawd
+
 # --- Watchdog Configuration ---
 # Max consecutive WebSocket failures before forcing a restart
 MAX_FAILURES=20
