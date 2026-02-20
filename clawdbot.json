@@ -44,7 +44,6 @@
   "channels": {
     "discord": {
       "token": "__DISCORD_BOT_TOKEN__",
-      "applicationId": "__DISCORD_APP_ID__",
       "groupPolicy": "open",
       "mediaMaxMb": 25,
       "actions": {
