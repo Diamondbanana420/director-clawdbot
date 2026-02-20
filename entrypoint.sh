@@ -1,10 +1,14 @@
 #!/bin/sh
 
-# Inject Discord token into config
-sed "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" \
-  /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json
+# --- Inject environment vars into clawdbot config ---
+echo "[setup] Injecting env vars into clawdbot config..."
+sed -e "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" \
+    -e "s|__DEEPSEEK_API_KEY__|${DEEPSEEK_API_KEY}|g" \
+    -e "s|__DISCORD_APP_ID__|${DISCORD_APP_ID}|g" \
+    /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json
+echo "[setup] clawdbot.json rendered"
 
-# --- Fix: Write auth-profiles.json for DeepSeek provider ---
+# --- Write auth-profiles.json for DeepSeek provider ---
 # clawdbot looks for API keys in auth-profiles.json inside the agent dir.
 echo "[setup] Writing DeepSeek auth-profiles.json..."
 AGENT_DIR="/data/.clawdbot/agents/main/agent"
@@ -33,7 +37,6 @@ git config --global --add safe.directory /root/clawd
 # --- Weaviate Knowledge Base Sync ---
 # Queries the Weaviate vector DB via GraphQL to export all stored objects.
 # Writes results to WEBWEAVE_KNOWLEDGE.md which the agent reads as context.
-# Uses WEBWEAVE_API_URL (Weaviate base URL) and WEBWEAVE_API_KEY (readonly key).
 sync_webweave() {
   echo "[weaviate] Starting knowledge base sync..."
   if [ -z "${WEBWEAVE_API_URL}" ]; then
@@ -44,7 +47,7 @@ sync_webweave() {
   KNOWLEDGE_FILE="/root/clawd/WEBWEAVE_KNOWLEDGE.md"
   WEAVIATE_URL="${WEBWEAVE_API_URL}"
   WEAVIATE_KEY="${WEBWEAVE_API_KEY}"
-  TIMESTAMP="$(date -u "+%Y-%m-%d %H:%M UTC")"
+  TIMESTAMP="$(date -u '+%Y-%m-%d %H:%M UTC')"
 
   # Step 1: Get schema to discover all collections
   echo "[weaviate] Fetching schema..."
@@ -80,21 +83,16 @@ sync_webweave() {
   for CLASS in $CLASSES; do
     echo "[weaviate] Querying collection: $CLASS"
 
-    # Build GraphQL query to get all objects with their properties
-    GQL_QUERY="$(printf '"'"'{"query": "{ Get { %s { _additional { id } } } }"}'"'"' "$CLASS")"
+    # Get property names for this class
+    PROPS="$(echo "$SCHEMA_JSON" | grep -A 200 '"class":"'"$CLASS"'"' | grep -o '"name":"[^"]*"' | head -20 | cut -d: -f2 | tr -d '"' | head -10)"
 
-    # First get property names for this class
-    PROPS="$(echo "$SCHEMA_JSON" | grep -A 200 ""class":"$CLASS"" | grep -o '"name":"[^"]*"' | head -20 | cut -d: -f2 | tr -d '"' | grep -v 'class|description|vectorizer|moduleConfig' | head -10)"
-
-    # Build a proper GraphQL query with known properties
     if [ -n "$PROPS" ]; then
-      PROP_LIST="$(echo "$PROPS" | tr "\n" " " | sed "s/ *$//")"
-      GQL_BODY="$(printf '"'"'{"query":"{ Get { %s { %s _additional { id creationTimeUnix } } } }"}'"'"' "$CLASS" "$PROP_LIST")"
+      PROP_LIST="$(echo "$PROPS" | tr '\n' ' ' | sed 's/ *$//')"
+      GQL_BODY="$(printf '{"query":"{ Get { %s { %s _additional { id creationTimeUnix } } } }"}' "$CLASS" "$PROP_LIST")"
     else
-      GQL_BODY="$(printf '"'"'{"query":"{ Get { %s { _additional { id creationTimeUnix } } } }"}'"'"' "$CLASS")"
+      GQL_BODY="$(printf '{"query":"{ Get { %s { _additional { id creationTimeUnix } } } }"}' "$CLASS")"
     fi
 
-    # Execute GraphQL query
     RESULT="$(curl -sf --max-time 30 \
       -X POST \
       -H "Authorization: Bearer $WEAVIATE_KEY" \
@@ -114,8 +112,8 @@ sync_webweave() {
     fi
   done
 
-  printf "\n---\n*%s total objects. Auto-synced daily. Do not edit manually.*\n" "$TOTAL_OBJECTS" >> "$KNOWLEDGE_FILE"
-  echo "[weaviate] Sync complete: $TOTAL_OBJECTS total objects across all collections"
+  printf "\n---\n*%s total objects. Auto-synced daily.*\n" "$TOTAL_OBJECTS" >> "$KNOWLEDGE_FILE"
+  echo "[weaviate] Sync complete: $TOTAL_OBJECTS total objects"
 }
 
 # Run initial Weaviate sync on startup
@@ -175,9 +173,10 @@ while true; do
   sleep 5
 
   # Re-inject configs on each restart
-  sed "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" \
-    /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json
-
+  sed -e "s|__DISCORD_BOT_TOKEN__|${DISCORD_BOT_TOKEN}|g" \
+      -e "s|__DEEPSEEK_API_KEY__|${DEEPSEEK_API_KEY}|g" \
+      -e "s|__DISCORD_APP_ID__|${DISCORD_APP_ID}|g" \
+      /root/.clawdbot/clawdbot.json.template > /root/.clawdbot/clawdbot.json
   mkdir -p "$AGENT_DIR"
   printf '{\n  "deepseek": {\n    "apiKey": "%s"\n  }\n}\n' "${DEEPSEEK_API_KEY}" > "$AGENT_DIR/auth-profiles.json"
 done
