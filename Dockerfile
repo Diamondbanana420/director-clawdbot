@@ -10,6 +10,9 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     && rm -rf /var/lib/apt/lists/*
 
+    # Install Python requests module for scripts that need HTTP requests
+    RUN pip3 install --break-system-packages requests
+
 # Install clawdbot globally with npm (force clean install)
 RUN npm cache clean --force && npm install -g clawdbot@latest --legacy-peer-deps
 
