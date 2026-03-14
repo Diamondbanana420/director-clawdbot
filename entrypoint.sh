@@ -119,6 +119,31 @@ sync_webweave() {
 # Run initial Weaviate sync on startup
 sync_webweave
 
+# --- Create placeholder files if they don't exist ---
+# Prevents ENOENT errors when the bot tries to read these on startup
+KNOWLEDGE_FILE="/root/clawd/WEBWEAVE_KNOWLEDGE.md"
+if [ ! -f "$KNOWLEDGE_FILE" ]; then
+  echo "[setup] Creating placeholder WEBWEAVE_KNOWLEDGE.md..."
+  printf "# WebWeave Knowledge Base\n*No data yet - WEBWEAVE_API_URL not configured.*\n" > "$KNOWLEDGE_FILE"
+fi
+
+# Create today's and yesterday's memory files if they don't exist
+TODAY="$(date -u '+%Y-%m-%d')"
+YESTERDAY="$(date -u -d '1 day ago' '+%Y-%m-%d' 2>/dev/null || date -u -v-1d '+%Y-%m-%d' 2>/dev/null || echo "")"
+mkdir -p /root/clawd/memory
+
+if [ ! -f "/root/clawd/memory/${TODAY}.md" ]; then
+  echo "[setup] Creating memory file for ${TODAY}..."
+  printf "# Memory Log - %s\n\n*Session started.*\n" "$TODAY" > "/root/clawd/memory/${TODAY}.md"
+fi
+
+if [ -n "$YESTERDAY" ] && [ ! -f "/root/clawd/memory/${YESTERDAY}.md" ]; then
+  echo "[setup] Creating memory file for ${YESTERDAY}..."
+  printf "# Memory Log - %s\n\n*No entries.*\n" "$YESTERDAY" > "/root/clawd/memory/${YESTERDAY}.md"
+fi
+
+echo "[setup] All placeholder files ready"
+
 # --- Watchdog Configuration ---
 MAX_FAILURES=20
 FAILURE_WINDOW=120
