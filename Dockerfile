@@ -1,43 +1,44 @@
 FROM node:22-slim
 
-# Install git, Python3, and system utilities needed by clawdbot tools
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
-    procps \
-    curl \
-    python3 \
-    python3-pip \
-    python3-venv \
-    && rm -rf /var/lib/apt/lists/*
+        procps \
+            curl \
+                python3 \
+                    python3-pip \
+                        python3-venv \
+                            && pip3 install --break-system-packages requests \
+                                && rm -rf /var/lib/apt/lists/*
 
-    # Install Python requests module for scripts that need HTTP requests
-    RUN pip3 install --break-system-packages requests
+                                # Install clawdbot
+                                RUN npm install -g clawdbot@latest --legacy-peer-deps
 
-# Install clawdbot globally with npm (force clean install)
-RUN npm cache clean --force && npm install -g clawdbot@latest --legacy-peer-deps
+                                # Create directories
+                                RUN mkdir -p /root/clawd /root/.clawdbot /root/clawd/memory
 
-# Create workspace and memory directories
-RUN mkdir -p /root/clawd /root/.clawdbot /root/clawd/memory
+                                WORKDIR /root/clawd
 
-# Set working directory
-WORKDIR /root/clawd
+                                # Copy only core workspace files (not the 100+ legacy files)
+                                COPY workspace/AGENTS.md workspace/SOUL.md workspace/USER.md workspace/IDENTITY.md \
+                                     workspace/MEMORY.md workspace/HEARTBEAT.md workspace/TOOLS.md \
+                                          workspace/ROLE_DEFINITION.md workspace/BOOTSTRAP.md workspace/README.md \
+                                               /root/clawd/
 
-# Copy workspace files
-COPY workspace/ /root/clawd/
+                                               # Copy skills directory
+                                               COPY workspace/skills/ /root/clawd/skills/
 
-# Copy clawdbot config template (contains placeholders)
-COPY clawdbot.json /root/.clawdbot/clawdbot.json.template
+                                               # Copy config template and entrypoint
+                                               COPY clawdbot.json /root/.clawdbot/clawdbot.json.template
+                                               COPY entrypoint.sh /root/entrypoint.sh
+                                               RUN chmod +x /root/entrypoint.sh
 
-# Copy watchdog entrypoint script
-# Monitors for repeated WebSocket reconnection failures and auto-restarts
-COPY entrypoint.sh /root/entrypoint.sh
-RUN chmod +x /root/entrypoint.sh
+                                               ENV HOME=/root
 
-# Set HOME for clawdbot
-ENV HOME=/root
+                                               EXPOSE 18789
 
-# Expose gateway port
-EXPOSE 18789
+                                               # Healthcheck: verify the gateway is alive
+                                               HEALTHCHECK --interval=60s --timeout=10s --retries=3 \
+                                                   CMD test -f /tmp/director-health && test "$(find /tmp/director-health -mmin -5)" != "" || exit 1
 
-# Start with watchdog entrypoint
-CMD ["/root/entrypoint.sh"]
+                                                   CMD ["/root/entrypoint.sh"]
